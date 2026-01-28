@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Súng Cối 60mm</title>
+    <title>Súng Cối 60mm - Tổng Quan</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
     <style>
         body { margin: 0; background: #0b0f0a; color: white; font-family: sans-serif; overflow: hidden; }
@@ -13,39 +13,39 @@
             background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent); 
             padding: 10px 0; z-index: 5; pointer-events: none;
         }
-        .header h1 { margin: 0; font-size: 16px; color: #4caf50; text-transform: uppercase; }
+        .header h1 { margin: 0; font-size: 16px; color: #4caf50; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* Vị trí phím: Nhỏ hơn và xếp từ trên xuống */
+        /* Cột phím bên TRÁI - Danh sách cụm chi tiết đã cập nhật */
         .sidebar {
-            position: absolute; display: flex; flex-direction: column; gap: 8px; z-index: 10;
-            top: 60px; /* Bắt đầu từ dưới tiêu đề xuống */
+            position: absolute; display: flex; flex-direction: column; gap: 6px; z-index: 10;
+            top: 50px; /* Bắt đầu từ dưới tiêu đề */
         }
-        .sidebar-left { left: 10px; }
+        .sidebar-left { left: 10px; max-height: 85vh; overflow-y: auto; padding-right: 5px; }
         .sidebar-right { right: 10px; }
 
+        /* Thanh cuộn nhỏ cho danh sách dài */
+        .sidebar-left::-webkit-scrollbar { width: 3px; }
+        .sidebar-left::-webkit-scrollbar-thumb { background: #2e7d32; border-radius: 10px; }
+
         .btn {
-            width: 100px; padding: 8px 5px; cursor: pointer;
+            width: 110px; padding: 10px 5px; cursor: pointer;
             background: rgba(27, 94, 32, 0.8); color: white;
             border: 1px solid #2e7d32; border-radius: 3px;
-            font-weight: bold; font-size: 11px; transition: 0.3s;
-            text-align: center;
+            font-weight: bold; font-size: 10px; transition: 0.3s;
+            text-align: center; text-transform: uppercase;
         }
+        .btn:hover { background: #2e7d32; box-shadow: 0 0 10px #4caf50; }
         .btn-info { background: rgba(1, 87, 155, 0.8); border-color: #0277bd; }
-        
-        /* Hiệu ứng mobile: nhỏ hơn nữa */
-        @media (max-width: 480px) {
-            .btn { width: 85px; font-size: 10px; padding: 6px 3px; }
-        }
 
         model-viewer { width: 100vw; height: 100vh; background: #000; }
 
         /* Hộp thoại thuyết minh */
         #text-box {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 75%; max-height: 50vh; background: rgba(0, 0, 0, 0.95);
+            width: 80%; max-height: 50vh; background: rgba(0, 0, 0, 0.95);
             border: 1px solid #0277bd; padding: 20px; border-radius: 10px;
             display: none; overflow-y: auto; z-index: 100; 
-            font-size: 14px; line-height: 1.6; box-shadow: 0 0 20px rgba(0,0,0,1);
+            font-size: 14px; line-height: 1.6; white-space: pre-line;
         }
     </style>
 </head>
@@ -57,6 +57,10 @@
         <button class="btn" onclick="location.href='pages/TayCam.html'">Tay Cầm</button>
         <button class="btn" onclick="location.href='pages/CoCauTam.html'">Cơ Cấu Tầm</button>
         <button class="btn" onclick="location.href='pages/CoCauHuong.html'">Cơ Cấu Hướng</button>
+        <button class="btn" onclick="location.href='pages/CumThanSung.html'">Thân Súng</button>
+        <button class="btn" onclick="location.href='pages/CumDuoiSung.html'">Đuôi Súng</button>
+        <button class="btn" onclick="location.href='pages/CumGiamGiat.html'">Giảm Giật</button>
+        <button class="btn" onclick="location.href='pages/DeSung.html'">Đế Súng</button>
     </div>
 
     <div class="sidebar sidebar-right">
@@ -80,22 +84,17 @@
                 fetch('ThuyetMinh.txt').then(res => res.text()).then(data => {
                     textBox.innerText = data;
                     textBox.style.display = 'block';
+                }).catch(() => {
+                    textBox.innerText = "Lỗi: Không tìm thấy file ThuyetMinh.txt";
+                    textBox.style.display = 'block';
                 });
             }
         }
 
-        // Hàm ẩn chữ khi nhấn ra ngoài
-        function hideText() {
-            if (textBox.style.display === 'block') {
-                textBox.style.display = 'none';
-            }
-        }
+        function hideText() { textBox.style.display = 'none'; }
 
-        // Đóng hộp chữ khi nhấn vào bất kỳ đâu trên body trừ hộp chữ và nút
         window.addEventListener('click', function(e) {
-            if (!textBox.contains(e.target)) {
-                hideText();
-            }
+            if (!textBox.contains(e.target)) hideText();
         });
 
         const audio = document.getElementById('myAudio');
