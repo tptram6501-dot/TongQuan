@@ -75,22 +75,49 @@
     </model-viewer>
 
     <script>
-        const modelViewer = document.querySelector("#tech-model");
+   const modelViewer = document.querySelector("#tech-model");
 
-        function playAnim(action) {
-            // Đảm bảo tên animation khớp với file GLB của bạn
-            if (action === 'ThaoRoi') {
-                modelViewer.animationName = "Explode"; 
-                modelViewer.play({repetitions: 1});
-            } else if (action === 'LapGhep') {
-                modelViewer.animationName = "Explode"; 
-                modelViewer.currentTime = modelViewer.duration; 
-                modelViewer.play({repetitions: 1, backward: true});
-            } else if (action === 'CatBo') {
-                modelViewer.animationName = "SectionView"; 
-                modelViewer.play({repetitions: 1});
-            }
+function playAnim(action) {
+    // model-viewer load xong mới có thể đọc danh sách animation
+    const anims = modelViewer.availableAnimations;
+    console.log("Danh sách clip:", anims);
+
+    if (action === 'ThaoRoi') {
+        // Giả sử clip '1' là Tháo rời
+        modelViewer.animationName = anims[0]; 
+        modelViewer.play();
+    } 
+    else if (action === 'LapGhep') {
+        // Nếu clip '2' là lắp ghép thì dùng anims[1]
+        // Nếu không có clip lắp ghép riêng, ta tua ngược clip 1
+        modelViewer.animationName = anims[0];
+        reverseAnimation(modelViewer);
+    } 
+    else if (action === 'CatBo') {
+        // Giả sử clip '3' là Cắt bổ
+        modelViewer.animationName = anims[2];
+        modelViewer.play();
+    }
+}
+
+// Hàm bổ trợ để chạy ngược Animation (vì model-viewer không hỗ trợ sẵn nút Reverse)
+function reverseAnimation(viewer) {
+    viewer.pause();
+    let duration = viewer.duration;
+    let currentTime = viewer.currentTime || duration;
+
+    const step = () => {
+        if (currentTime > 0) {
+            currentTime -= 0.05; // Tốc độ tua ngược
+            viewer.currentTime = currentTime;
+            requestAnimationFrame(step);
+        } else {
+            viewer.pause();
+            viewer.currentTime = 0;
         }
+    };
+    requestAnimationFrame(step);
+}
     </script>
 </body>
 </html>
