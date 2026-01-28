@@ -75,45 +75,61 @@
     </model-viewer>
 
     <script>
-   const modelViewer = document.querySelector("#tech-model");
+  const modelViewer = document.querySelector("#tech-model");
 
 function playAnim(action) {
-    // model-viewer load xong mới có thể đọc danh sách animation
+    // Lấy danh sách thực tế các animation từ file GLB
     const anims = modelViewer.availableAnimations;
-    console.log("Danh sách clip:", anims);
+    
+    // Kiểm tra nếu file không có animation
+    if (anims.length === 0) {
+        console.error("File 3D này không chứa animation nào!");
+        return;
+    }
+
+    // Dừng mọi hành động trước khi chuyển clip
+    modelViewer.pause();
 
     if (action === 'ThaoRoi') {
-        // Giả sử clip '1' là Tháo rời
+        // Chạy clip đầu tiên trong danh sách
         modelViewer.animationName = anims[0]; 
+        modelViewer.currentTime = 0;
         modelViewer.play();
     } 
     else if (action === 'LapGhep') {
-        // Nếu clip '2' là lắp ghép thì dùng anims[1]
-        // Nếu không có clip lắp ghép riêng, ta tua ngược clip 1
-        modelViewer.animationName = anims[0];
-        reverseAnimation(modelViewer);
+        // Nếu bạn có clip thứ 2 chuyên cho lắp ghép
+        if (anims.length >= 2) {
+            modelViewer.animationName = anims[1];
+            modelViewer.currentTime = 0;
+            modelViewer.play();
+        } else {
+            // Nếu chỉ có 1 clip, dùng hàm tua ngược clip 1
+            modelViewer.animationName = anims[0];
+            runReverse();
+        }
     } 
     else if (action === 'CatBo') {
-        // Giả sử clip '3' là Cắt bổ
-        modelViewer.animationName = anims[2];
-        modelViewer.play();
+        // Chạy clip thứ 3 (nếu có)
+        if (anims.length >= 3) {
+            modelViewer.animationName = anims[2];
+            modelViewer.currentTime = 0;
+            modelViewer.play();
+        } else {
+            alert("File này không có clip thứ 3 cho Cắt bổ");
+        }
     }
 }
 
-// Hàm bổ trợ để chạy ngược Animation (vì model-viewer không hỗ trợ sẵn nút Reverse)
-function reverseAnimation(viewer) {
-    viewer.pause();
-    let duration = viewer.duration;
-    let currentTime = viewer.currentTime || duration;
-
+function runReverse() {
+    modelViewer.pause();
+    if (modelViewer.currentTime === 0) modelViewer.currentTime = modelViewer.duration;
+    
     const step = () => {
-        if (currentTime > 0) {
-            currentTime -= 0.05; // Tốc độ tua ngược
-            viewer.currentTime = currentTime;
+        if (modelViewer.currentTime > 0) {
+            modelViewer.currentTime -= 0.03;
             requestAnimationFrame(step);
         } else {
-            viewer.pause();
-            viewer.currentTime = 0;
+            modelViewer.pause();
         }
     };
     requestAnimationFrame(step);
