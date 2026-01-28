@@ -8,62 +8,44 @@
     <style>
         body { margin: 0; background: #0b0f0a; color: white; font-family: sans-serif; overflow: hidden; }
         
-        /* Tiêu đề linh hoạt */
         .header {
             position: absolute; top: 0; width: 100%; text-align: center;
             background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent); 
-            padding: 10px 0; z-index: 10;
+            padding: 10px 0; z-index: 5; pointer-events: none;
         }
-        .header h1 { margin: 0; font-size: 18px; color: #4caf50; letter-spacing: 1px; }
+        .header h1 { margin: 0; font-size: 16px; color: #4caf50; text-transform: uppercase; }
 
-        /* Cấu trúc Sidebars mặc định (Cho máy tính) */
+        /* Vị trí phím: Nhỏ hơn và xếp từ trên xuống */
         .sidebar {
-            position: absolute; display: flex; flex-direction: column; gap: 10px; z-index: 10;
-            top: 50%; transform: translateY(-50%);
+            position: absolute; display: flex; flex-direction: column; gap: 8px; z-index: 10;
+            top: 60px; /* Bắt đầu từ dưới tiêu đề xuống */
         }
-        .sidebar-left { left: 15px; }
-        .sidebar-right { right: 15px; }
+        .sidebar-left { left: 10px; }
+        .sidebar-right { right: 10px; }
 
         .btn {
-            width: 140px; padding: 12px; cursor: pointer;
-            background: rgba(27, 94, 32, 0.85); color: white;
-            border: 1px solid #2e7d32; border-radius: 5px;
-            font-weight: bold; font-size: 13px; transition: 0.3s;
+            width: 100px; padding: 8px 5px; cursor: pointer;
+            background: rgba(27, 94, 32, 0.8); color: white;
+            border: 1px solid #2e7d32; border-radius: 3px;
+            font-weight: bold; font-size: 11px; transition: 0.3s;
+            text-align: center;
         }
-        .btn-info { background: rgba(1, 87, 155, 0.85); border-color: #0277bd; }
+        .btn-info { background: rgba(1, 87, 155, 0.8); border-color: #0277bd; }
+        
+        /* Hiệu ứng mobile: nhỏ hơn nữa */
+        @media (max-width: 480px) {
+            .btn { width: 85px; font-size: 10px; padding: 6px 3px; }
+        }
 
         model-viewer { width: 100vw; height: 100vh; background: #000; }
 
         /* Hộp thoại thuyết minh */
         #text-box {
-            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 85%; max-height: 30vh; background: rgba(0, 0, 0, 0.9);
-            border-top: 3px solid #0277bd; padding: 15px; border-radius: 8px;
-            display: none; overflow-y: auto; z-index: 20; font-size: 14px;
-        }
-
-        /* --- THIẾT KẾ RIÊNG CHO ĐIỆN THOẠI (Mobile) --- */
-        @media (max-width: 768px) {
-            .header h1 { font-size: 16px; }
-
-            /* Đưa phím xuống dưới hoặc thu nhỏ lại */
-            .sidebar {
-                top: auto; transform: none; bottom: 80px; /* Đẩy lên trên text-box một chút */
-                flex-direction: row; width: 95%; justify-content: center; left: 2.5%; right: 2.5%;
-                flex-wrap: wrap; gap: 5px;
-            }
-            
-            .sidebar-left { bottom: 125px; } /* Cụm chi tiết xếp hàng trên */
-            .sidebar-right { bottom: 80px; }  /* Thuyết minh xếp hàng dưới */
-
-            .btn {
-                width: 30%; /* Chia 3 nút mỗi hàng */
-                padding: 8px 5px;
-                font-size: 10px;
-                white-space: nowrap; /* Không cho xuống dòng chữ trong nút */
-            }
-            
-            #text-box { width: 90%; bottom: 10px; font-size: 13px; }
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 75%; max-height: 50vh; background: rgba(0, 0, 0, 0.95);
+            border: 1px solid #0277bd; padding: 20px; border-radius: 10px;
+            display: none; overflow-y: auto; z-index: 100; 
+            font-size: 14px; line-height: 1.6; box-shadow: 0 0 20px rgba(0,0,0,1);
         }
     </style>
 </head>
@@ -78,40 +60,56 @@
     </div>
 
     <div class="sidebar sidebar-right">
-        <button class="btn btn-info" onclick="toggleText()">Chữ</button>
-        <button class="btn btn-info" id="audio-btn" onclick="toggleAudio()">Âm Thanh</button>
+        <button class="btn btn-info" onclick="event.stopPropagation(); toggleText()">Xem Chữ</button>
+        <button class="btn btn-info" id="audio-btn" onclick="event.stopPropagation(); toggleAudio()">Nghe Âm</button>
     </div>
 
-    <model-viewer src="models/LapGhepTong.glb" camera-controls auto-rotate shadow-intensity="1"></model-viewer>
+    <model-viewer id="main-model" src="models/LapGhepTong.glb" camera-controls auto-rotate shadow-intensity="1" onclick="hideText()">
+    </model-viewer>
 
-    <div id="text-box"></div>
+    <div id="text-box" onclick="event.stopPropagation()"></div>
     <audio id="myAudio" src="ThuyetMinhAmThanh.mp3"></audio>
 
     <script>
+        const textBox = document.getElementById('text-box');
+
         function toggleText() {
-            const box = document.getElementById('text-box');
-            if (box.style.display === 'block') {
-                box.style.display = 'none';
+            if (textBox.style.display === 'block') {
+                textBox.style.display = 'none';
             } else {
                 fetch('ThuyetMinh.txt').then(res => res.text()).then(data => {
-                    box.innerText = data;
-                    box.style.display = 'block';
+                    textBox.innerText = data;
+                    textBox.style.display = 'block';
                 });
             }
         }
+
+        // Hàm ẩn chữ khi nhấn ra ngoài
+        function hideText() {
+            if (textBox.style.display === 'block') {
+                textBox.style.display = 'none';
+            }
+        }
+
+        // Đóng hộp chữ khi nhấn vào bất kỳ đâu trên body trừ hộp chữ và nút
+        window.addEventListener('click', function(e) {
+            if (!textBox.contains(e.target)) {
+                hideText();
+            }
+        });
 
         const audio = document.getElementById('myAudio');
         const audioBtn = document.getElementById('audio-btn');
 
         function toggleAudio() {
             if (audio.paused) {
-                audio.play().catch(() => alert("Lỗi: Kiểm tra lại tên file MP3 hoặc tương tác với màn hình trước khi bấm!"));
+                audio.play().catch(() => alert("Nhấn vào màn hình trước khi nghe!"));
                 audioBtn.innerText = "Dừng";
                 audioBtn.style.background = "#c62828";
             } else {
                 audio.pause();
-                audioBtn.innerText = "Âm Thanh";
-                audioBtn.style.background = "rgba(1, 87, 155, 0.85)";
+                audioBtn.innerText = "Nghe Âm";
+                audioBtn.style.background = "rgba(1, 87, 155, 0.8)";
             }
         }
     </script>
