@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Súng Cối 60 - Huấn Luyện</title>
+    <title>Súng Cối 60 - Điều Hướng</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
     <style>
         /* Tông màu Navy chuyên nghiệp */
@@ -35,7 +35,7 @@
             text-align: center; text-transform: uppercase;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: 0.3s;
         }
-        .btn:hover { background: #f0f5ff; border-color: #0056b3; color: #0056b3; }
+        .btn:hover { background: #f0f5ff; color: #0056b3; border-color: #0056b3; }
         
         .btn-info { color: #0056b3; border-color: #0056b3; }
 
@@ -79,12 +79,13 @@
         <button class="btn btn-info" id="audio-btn" onclick="toggleAudio()">Nghe Âm</button>
     </div>
 
-    <model-viewer id="main-model" src="../models/LapGhepTong.glb" 
+    <model-viewer id="main-model" src="models/LapGhepTong.glb" 
         camera-controls auto-rotate shadow-intensity="1.5" exposure="1.1">
     </model-viewer>
 
     <div id="text-box"></div>
-    <audio id="myAudio" src="../ThuyetMinhAmThanh.mp3"></audio>
+    
+    <audio id="myAudio" src="/ThuyetMinhAmThanh.mp3"></audio>
 
     <script>
         const textBox = document.getElementById('text-box');
@@ -95,11 +96,13 @@
             if (textBox.style.display === 'block') {
                 textBox.style.display = 'none';
             } else {
-                // Sửa đường dẫn trỏ ra ngoài gốc
-                fetch('../ThuyetMinh.txt').then(res => res.text()).then(data => {
+                fetch('/ThuyetMinh.txt').then(res => res.text()).then(data => {
                     textBox.innerText = data;
                     textBox.style.display = 'block';
-                }).catch(() => { textBox.innerText = "Lỗi nạp file thuyết minh."; textBox.style.display = 'block'; });
+                }).catch(() => { 
+                    textBox.innerText = "Lỗi nạp file thuyết minh. Kiểm tra lại đường dẫn file ThuyetMinh.txt ở thư mục gốc."; 
+                    textBox.style.display = 'block'; 
+                });
             }
         }
 
@@ -107,15 +110,15 @@
             if (audio.paused) {
                 audio.play();
                 audioBtn.innerText = "Dừng";
-                audioBtn.style.background = "#e3f2fd";
             } else {
                 audio.pause();
-                audioBtn.innerText = "Nghe Âm";
-                audioBtn.style.background = "#ffffff";
+                audioBtn.innerText = "Âm Thanh";
             }
         }
         
-        window.onclick = function(e) { if (e.target.tagName !== 'BUTTON' && !textBox.contains(e.target)) textBox.style.display = 'none'; }
+        window.onclick = function(e) { 
+            if (e.target.tagName !== 'BUTTON' && !textBox.contains(e.target)) textBox.style.display = 'none'; 
+        }
     </script>
 </body>
 </html>
