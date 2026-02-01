@@ -1,0 +1,76 @@
+<style>
+    /* Giao diện sáng (Light Mode) */
+    body { margin: 0; background: #f5f7f5; color: #333; font-family: sans-serif; overflow: hidden; }
+    
+    .header {
+        position: absolute; top: 0; width: 100%; text-align: center;
+        background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(4px);
+        padding: 8px 0; z-index: 5; border-bottom: 1px solid #2e7d32;
+    }
+    .header h1 { margin: 0; font-size: 15px; color: #1b5e20; text-transform: uppercase; letter-spacing: 1px; }
+
+    /* Nút quay lại Menu chính */
+    .home-btn {
+        position: absolute; top: 10px; left: 10px; z-index: 20;
+        padding: 5px 10px; background: #1b5e20; color: white;
+        border: none; border-radius: 4px; cursor: pointer;
+        text-decoration: none; font-size: 10px; font-weight: bold;
+    }
+
+    /* Sidebar phím bấm */
+    .sidebar {
+        position: absolute; display: flex; flex-direction: column; gap: 6px; z-index: 10;
+        top: 55px;
+    }
+    .sidebar-left { left: 8px; max-height: 85vh; overflow-y: auto; padding-right: 5px; }
+    .sidebar-right { right: 8px; }
+
+    /* Thiết lập phím bấm mặc định (Máy tính) */
+    .btn {
+        width: 110px; padding: 10px 5px; cursor: pointer;
+        background: #ffffff; color: #1b5e20;
+        border: 1px solid #2e7d32; border-radius: 4px;
+        font-weight: bold; font-size: 10px; transition: 0.2s;
+        text-align: center; text-transform: uppercase;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .btn-info { color: #0277bd; border-color: #0277bd; }
+
+    /* --- ĐIỀU CHỈNH RIÊNG CHO ĐIỆN THOẠI (Mobile) --- */
+    @media (max-width: 600px) {
+        .header h1 { font-size: 13px; }
+        
+        .btn {
+            width: 80px;        /* Thu nhỏ chiều rộng nút */
+            padding: 8px 3px;   /* Giảm khoảng cách trong nút */
+            font-size: 9px;     /* Chữ nhỏ hơn */
+            border-radius: 2px; /* Viền sắc nét hơn trên màn hình nhỏ */
+        }
+
+        .home-btn {
+            padding: 4px 8px;
+            font-size: 9px;
+            top: 8px;
+            left: 5px;
+        }
+
+        .sidebar { top: 45px; gap: 4px; }
+        .sidebar-left { left: 5px; }
+        .sidebar-right { right: 5px; }
+    }
+
+    model-viewer { 
+        width: 100vw; height: 100vh; 
+        background: radial-gradient(circle, #ffffff 0%, #d0d7d0 100%); 
+    }
+
+    #text-box {
+        position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        width: 85%; max-height: 55vh; background: rgba(255, 255, 255, 0.98);
+        border-left: 4px solid #0277bd; padding: 15px; border-radius: 8px;
+        display: none; overflow-y: auto; z-index: 100; 
+        font-size: 13px; line-height: 1.5; color: #333;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+</style>
