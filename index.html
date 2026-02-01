@@ -2,128 +2,136 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Súng Cối 60mm - Giao diện Sáng</title>
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Huấn Luyện Trang Bị Kỹ Thuật</title>
     <style>
-        /* Thay đổi màu nền chủ đạo sang xám trắng */
-        body { margin: 0; background: #f5f7f5; color: #333; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow: hidden; }
-        
-        .header {
-            position: absolute; top: 0; width: 100%; text-align: center;
-            background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(5px);
-            padding: 12px 0; z-index: 5; border-bottom: 2px solid #2e7d32;
-        }
-        .header h1 { margin: 0; font-size: 18px; color: #1b5e20; text-transform: uppercase; letter-spacing: 2px; }
-
-        /* Cột phím điều hướng */
-        .sidebar {
-            position: absolute; display: flex; flex-direction: column; gap: 8px; z-index: 10;
-            top: 70px;
-        }
-        .sidebar-left { left: 12px; max-height: 80vh; overflow-y: auto; padding-right: 5px; }
-        .sidebar-right { right: 12px; }
-
-        /* Tùy chỉnh thanh cuộn cho Sidebar */
-        .sidebar-left::-webkit-scrollbar { width: 4px; }
-        .sidebar-left::-webkit-scrollbar-thumb { background: #cbd5cb; border-radius: 10px; }
-
-        /* Phím bấm dạng sáng chuyên nghiệp */
-        .btn {
-            width: 120px; padding: 12px 8px; cursor: pointer;
-            background: #ffffff; color: #1b5e20;
-            border: 1px solid #2e7d32; border-radius: 6px;
-            font-weight: bold; font-size: 11px; transition: 0.3s;
-            text-align: center; text-transform: uppercase;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .btn:hover { background: #e8f5e9; box-shadow: 0 4px 10px rgba(46, 125, 50, 0.2); transform: translateY(-1px); }
-        
-        /* Phím chức năng Thuyết minh (Màu xanh dương sáng) */
-        .btn-info { background: #ffffff; color: #01579b; border-color: #0288d1; }
-        .btn-info:hover { background: #e1f5fe; }
-
-        /* Mô hình 3D - Nền Gradient sáng */
-        model-viewer { 
-            width: 100vw; height: 100vh; 
-            background: radial-gradient(circle, #ffffff 0%, #e0e0e0 100%); 
+        :root {
+            --primary: #1b5e20;
+            --accent: #fbc02d;
+            --bg: #f4f7f4;
         }
 
-        /* Hộp thoại thuyết minh chữ */
-        #text-box {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 80%; max-height: 50vh; background: rgba(255, 255, 255, 0.98);
-            border-left: 5px solid #0288d1; color: #333;
-            padding: 25px; border-radius: 8px;
-            display: none; overflow-y: auto; z-index: 100; 
-            font-size: 15px; line-height: 1.8;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background-color: var(--bg);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Header phong cách quân sự hiện đại */
+        .hero {
+            width: 100%;
+            padding: 60px 0;
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .hero h1 { margin: 0; font-size: 2.5rem; letter-spacing: 2px; text-transform: uppercase; }
+        .hero p { margin-top: 10px; font-size: 1.1rem; opacity: 0.9; }
+
+        /* Vùng chứa các thẻ Menu */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 90%;
+            max-width: 1200px;
+            padding: 50px 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(27, 94, 32, 0.2);
+            border-color: var(--primary);
+        }
+
+        .card-img {
+            height: 200px;
+            background: #e8f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .card-body { padding: 20px; text-align: center; }
+        .card-body h2 { margin: 0; font-size: 1.4rem; color: var(--primary); }
+        .card-body p { margin-top: 10px; font-size: 0.95rem; color: #666; line-height: 1.5; }
+
+        .btn-enter {
+            margin-top: 15px;
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--primary);
+            color: white;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .menu-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="header"><h1>SÚNG CỐI 60MM</h1></div>
-
-    <div class="sidebar sidebar-left">
-        <button class="btn" onclick="location.href='pages/CumTayCam.html'">Tay Cầm</button>
-        <button class="btn" onclick="location.href='pages/CoCauTam.html'">Cơ Cấu Tầm</button>
-        <button class="btn" onclick="location.href='pages/CoCauHuong.html'">Cơ Cấu Hướng</button>
-        <button class="btn" onclick="location.href='pages/CumThanSung.html'">Thân Súng</button>
-        <button class="btn" onclick="location.href='pages/CumDuoiSung.html'">Đuôi Súng</button>
-        <button class="btn" onclick="location.href='pages/CumGiamGiat.html'">Giảm Giật</button>
-        <button class="btn" onclick="location.href='pages/DeSung.html'">Đế Súng</button>
+    <div class="hero">
+        <h1>HỆ THỐNG HUẤN LUYỆN ẢO</h1>
+        <p>Học viện Kỹ thuật Quân sự - Chuyên ngành Trang bị</p>
     </div>
 
-    <div class="sidebar sidebar-right">
-        <button class="btn btn-info" onclick="event.stopPropagation(); toggleText()">Xem Chữ</button>
-        <button class="btn btn-info" id="audio-btn" onclick="event.stopPropagation(); toggleAudio()">Nghe Âm</button>
+    <div class="menu-grid">
+        
+        <a href="Coi60mm/index.html" class="card">
+            <div class="card-img">🔫</div>
+            <div class="card-body">
+                <h2>Súng Cối 60mm</h2>
+                <p>Khám phá cấu tạo chi tiết, phân tích các cụm cơ cấu tầm, hướng và quy trình tháo lắp mô phỏng.</p>
+                <div class="btn-enter">VÀO HỌC TẬP</div>
+            </div>
+        </a>
+
+        <a href="#" class="card">
+            <div class="card-img">⚓</div>
+            <div class="card-body">
+                <h2>Thủy Lôi UDM</h2>
+                <p>Nghiên cứu nguyên lý hoạt động, hệ thống ngòi nổ và các thành phần cấu tạo của thủy lôi UDM.</p>
+                <div class="btn-enter">ĐANG CẬP NHẬT</div>
+            </div>
+        </a>
+
+        <a href="#" class="card">
+            <div class="card-img">🧯</div>
+            <div class="card-body">
+                <h2>Bình Cứu Hỏa</h2>
+                <p>Hướng dẫn phân loại và sử dụng các loại bình chữa cháy bột, khí CO2 trong các tình huống khẩn cấp.</p>
+                <div class="btn-enter">ĐANG CẬP NHẬT</div>
+            </div>
+        </a>
+
     </div>
 
-    <model-viewer id="main-model" src="models/LapGhepTong.glb" 
-        camera-controls auto-rotate shadow-intensity="1.5" 
-        shadow-softness="1" exposure="1.2" onclick="hideText()">
-    </model-viewer>
+    <p style="color: #999; font-size: 0.8rem; margin-bottom: 30px;">&copy; 2026 Dự án mô phỏng huấn luyện kỹ thuật số</p>
 
-    <div id="text-box" onclick="event.stopPropagation()"></div>
-    <audio id="myAudio" src="ThuyetMinhAmThanh.mp3"></audio>
-
-    <script>
-        const textBox = document.getElementById('text-box');
-
-        function toggleText() {
-            if (textBox.style.display === 'block') {
-                textBox.style.display = 'none';
-            } else {
-                fetch('ThuyetMinh.txt').then(res => res.text()).then(data => {
-                    textBox.innerText = data;
-                    textBox.style.display = 'block';
-                }).catch(() => {
-                    textBox.innerText = "Lỗi nạp thuyết minh.";
-                    textBox.style.display = 'block';
-                });
-            }
-        }
-
-        function hideText() { textBox.style.display = 'none'; }
-        window.addEventListener('click', function(e) { if (!textBox.contains(e.target)) hideText(); });
-
-        const audio = document.getElementById('myAudio');
-        const audioBtn = document.getElementById('audio-btn');
-
-        function toggleAudio() {
-            if (audio.paused) {
-                audio.play().catch(() => alert("Nhấn vào màn hình trước!"));
-                audioBtn.innerText = "Dừng";
-                audioBtn.style.background = "#ffebee";
-                audioBtn.style.color = "#c62828";
-            } else {
-                audio.pause();
-                audioBtn.innerText = "Nghe Âm";
-                audioBtn.style.background = "#ffffff";
-                audioBtn.style.color = "#01579b";
-            }
-        }
-    </script>
 </body>
 </html>
