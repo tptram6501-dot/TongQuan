@@ -6,22 +6,126 @@
     <title>Cụm Giảm Giật</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     <style>
-        :root { --navy: #002147; }
+        :root { --navy: #002147; --gold: #fbc02d; }
         body { margin: 0; background: #f0f2f5; font-family: sans-serif; overflow: hidden; }
         
-        /* NAVIGATION */
-        .top-nav { position: absolute; top: 0; width: 100%; text-align: center; background: rgba(255,255,255,0.9); padding: 10px 0; z-index: 10; border-bottom: 2px solid var(--navy); }
-        .back-btn { position: absolute; top: 10px; left: 10px; padding: 5px 12px; background: var(--navy); color: white; border-radius: 4px; text-decoration: none; font-size: 10px; font-weight: bold; }
-        
-        /* SIDEBAR RIGHT */
-        .sidebar-right { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 10; }
-        .btn-tech { width: 85px; padding: 12px 5px; cursor: pointer; background: #fff; color: var(--navy); border: 1px solid var(--navy); border-radius: 4px; font-weight: bold; font-size: 9px; text-transform: uppercase; transition: 0.2s; }
+        /* THANH ĐIỀU HƯỚNG TRÊN CÙNG */
+        .top-nav { 
+            position: absolute; top: 0; width: 100%; text-align: center; 
+            background: rgba(255,255,255,0.95); padding: 10px 0; z-index: 10; 
+            border-bottom: 2px solid var(--navy); 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .back-btn { 
+            position: absolute; top: 10px; left: 10px; padding: 5px 12px; 
+            background: var(--navy); color: white; border-radius: 4px; 
+            text-decoration: none; font-size: 10px; font-weight: bold; 
+        }
+        .page-title { color: var(--navy); font-weight: bold; text-transform: uppercase; }
+
+        /* THANH CÔNG CỤ BÊN PHẢI (VIDEO) */
+        .sidebar-right { 
+            position: absolute; right: 10px; top: 50%; transform: translateY(-50%); 
+            display: flex; flex-direction: column; gap: 10px; z-index: 10; 
+        }
+        .btn-tech { 
+            width: 85px; padding: 12px 5px; cursor: pointer; 
+            background: #fff; color: var(--navy); border: 1px solid var(--navy); 
+            border-radius: 4px; font-weight: bold; font-size: 9px; text-transform: uppercase; 
+            transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
         .btn-tech:hover { background: var(--navy); color: white; }
 
-        /* 3D VIEWER */
+        /* KHUNG HIỂN THỊ 3D */
         model-viewer { width: 100vw; height: 100vh; background: radial-gradient(circle, #ffffff 0%, #cfd8dc 100%); }
         
-        /* VIDEO OVERLAY */
-        #video-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 100; }
+        /* THANH LOADING BAR */
+        .progress-bar {
+            display: block; width: 33%; height: 6px;
+            position: absolute; left: 50%; top: 50%;
+            transform: translate3d(-50%, -50%, 0);
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--navy);
+            border-radius: 4px; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+        }
+        .progress-bar.hide { visibility: hidden; transition: visibility 0.3s; }
+        .update-bar {
+            background-color: var(--navy); width: 0%; height: 100%; /* Dùng màu Navy cho đồng bộ */
+            border-radius: 4px; transition: width 0.1s;
+        }
+
+        /* KHUNG VIDEO POPUP */
+        #video-overlay { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(255,255,255,0.98); display: none; 
+            flex-direction: column; justify-content: center; align-items: center; z-index: 100; 
+        }
         video { width: 90%; max-width: 700px; border: 2px solid var(--navy); border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .close-btn { margin-top: 15px; padding: 10px 20px; background: var(--
+        .close-btn { 
+            margin-top: 15px; padding: 10px 20px; background: var(--navy); color: white; 
+            border: none; border-radius: 4px; cursor: pointer; font-weight: bold; 
+        }
+        .close-btn:hover { background: var(--gold); color: var(--navy); }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <a href="../index.html" class="back-btn">← QUAY LẠI</a>
+        <div class="page-title">CỤM GIẢM GIẬT</div>
+    </div>
+
+    <div class="sidebar-right">
+        <button class="btn-tech" onclick="openVid()">VIDEO</button>
+    </div>
+
+    <model-viewer id="mv" 
+        src="../models/CumGiamGiat.glb" 
+        camera-controls 
+        auto-rotate 
+        shadow-intensity="1.5" 
+        exposure="1.2">
+        
+        <div class="progress-bar" slot="progress-bar">
+            <div class="update-bar"></div>
+        </div>
+
+    </model-viewer>
+
+    <div id="video-overlay">
+        <video id="player" controls playsinline>
+            <source src="../videos/PT.CumGiamGiat.mp4" type="video/mp4">
+        </video>
+        <button class="close-btn" onclick="closeVid()">ĐÓNG</button>
+    </div>
+
+    <script>
+        const model = document.getElementById('mv');
+        const progressBar = document.querySelector('.progress-bar');
+        const updateBar = document.querySelector('.update-bar');
+
+        // Xử lý Loading Bar
+        model.addEventListener('progress', (e) => {
+            const progress = e.detail.totalProgress;
+            updateBar.style.width = `${progress * 100}%`;
+            if (progress === 1) {
+                setTimeout(() => { progressBar.classList.add('hide'); }, 500);
+            } else {
+                progressBar.classList.remove('hide');
+            }
+        });
+
+        // Xử lý bật/tắt Video
+        function openVid() { 
+            document.getElementById('video-overlay').style.display = 'flex'; 
+            document.getElementById('player').play(); 
+        }
+        
+        function closeVid() { 
+            document.getElementById('video-overlay').style.display = 'none'; 
+            document.getElementById('player').pause(); 
+        }
+    </script>
+</body>
+</html>
