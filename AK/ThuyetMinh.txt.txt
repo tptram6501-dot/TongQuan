@@ -1,0 +1,24 @@
+1. Công dụng
+Súng tiểu liên 7,62mm AK do liên xô thiết kế chế tạo đầu tiên lấy tên là súng tiểu liên 7,62 AK47.
+Súng tiểu liên 7,62 AK được trang bị cho cá nhân để tiêu diệt sinh lực địch trong tầm bắn hiệu quả 400m và tiêu diệt địch đến cự ly 800m.
+Trong chiến đấu có thể dùng để bắn quân nhảy dù, máy bay tầm thấp ở cự ly 400m trở lại. Súng còn có lê và báng để sự dụng trong đánh cận chiến.
+2. Đặc điểm cấu tạo
+- Súng tự động bắn theo nguyên lý trích khí thuốc qua thành nòng, tác dụng lên piston làm piston lùi thực hiện các chuyển động tự động của súng.
+- Đóng mở khóa nòng theo kiểu quay khi đóng khóa, thân khóa nòng quay theo chiều kim đồng hồ, mặt tỳ trên thân khóa lọt vào khấc tỳ trên hộp khóa nòng tạo thế khóa vững chắc. Khi mở, thân khóa chuyển động ngược lại.
+- Bộ phận cò vừa bắn được phát một, vừa bắn được liên thanh. Búa đập theo kiểu cầu vồng sử dụng năng lượng lò xo riêng.
+- An toàn theo kiểu chặn tay cò và chặn đường lùi của khóa nóng.
+- Bộ phận ngắm có thước ngắm kiểu bệ vòng, đầu ngắm được liên kết ren với bệ di động để tiện điều chỉnh.
+- Tiếp đạn từ ngoài vào đường tống đạn sử dụng năng lượng lò xo riêng.
+- Súng bắn ở nhiều tư thế đứng, quỳ, nằm,…
+- Súng dùng đạn cỡ 7,62mm kiểu 1943(LX) hay 7,62mm K56(TQ).
+3. Tính năng kỹ chiến thuật
+- Cỡ nòng	7,62mm
+- Khối lượng súng không đạn	4,3kg
+- Khối lượng súng lắp đủ đạn (30 viên)	4,8kg
+- Chiều dài súng 	870mm
+- Bước ren đầu ngắm	0,75mm
+- Sơ tốc đầu đạn (v0)	710ms
+- Tốc độ bắn lý thuyết	600 phátphút
+- Tốc độ bắn liên thanh thực tế	90-100 phátphút
+- Tốc độ bắn phát một thực tế	40 phátphút
+- Hộp tiếp đạn chứa 	30 viên
