@@ -2,57 +2,106 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Huấn Luyện Súng Cối 60mm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Súng Cối 60mm - Tổng Quan</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     <style>
         :root { --navy: #002147; --gold: #fbc02d; }
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #f4f7f9; overflow: hidden; }
+        body { margin: 0; background: #f0f2f5; font-family: 'Segoe UI', Arial, sans-serif; overflow: hidden; }
 
-        /* Header */
-        .header {
-            background: var(--navy); color: white; padding: 15px;
-            display: flex; align-items: center; border-bottom: 3px solid var(--gold);
-            position: relative; z-index: 10;
+        /* HEADER */
+        .top-nav {
+            position: absolute; top: 0; width: 100%; text-align: center;
+            background: rgba(255, 255, 255, 0.95); padding: 10px 0; z-index: 10;
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        .back-btn { color: white; text-decoration: none; font-weight: bold; font-size: 14px; margin-right: 20px; }
-
-        /* Khung thuyết minh chữ */
-        #description-box {
-            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-            width: 85%; max-width: 700px; background: rgba(255, 255, 255, 0.95);
-            padding: 15px; border-radius: 8px; border-left: 6px solid var(--navy);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3); z-index: 10;
-            max-height: 150px; overflow-y: auto; /* Cho phép cuộn nếu chữ quá dài */
+        .title-label { color: var(--navy); text-transform: uppercase; font-size: 16px; font-weight: 800; }
+        .back-btn {
+            position: absolute; top: 10px; left: 10px; padding: 6px 15px;
+            background: var(--navy); color: white; border-radius: 4px;
+            text-decoration: none; font-size: 11px; font-weight: bold;
         }
-        #description-text { color: #333; font-size: 15px; line-height: 1.6; margin: 0; white-space: pre-wrap; }
 
+        /* SIDEBAR TRÁI - MENU CÁC CỤM */
+        .sidebar-left {
+            position: absolute; left: 10px; top: 55%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 8px; z-index: 10;
+        }
+        .btn-nav {
+            width: 110px; padding: 10px 5px; cursor: pointer;
+            background: rgba(255, 255, 255, 0.9); color: var(--navy);
+            border: 1px solid var(--navy); border-left: 5px solid var(--navy);
+            border-radius: 4px; font-weight: bold; font-size: 10px;
+            text-decoration: none; text-align: left; padding-left: 10px;
+            transition: 0.2s; box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        .btn-nav:hover { background: var(--navy); color: white; transform: translateX(5px); }
+
+        /* SIDEBAR PHẢI - CHỨC NĂNG */
+        .sidebar-right {
+            position: absolute; right: 10px; top: 55%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 10px; z-index: 10;
+        }
+        .btn-func {
+            width: 50px; height: 50px; cursor: pointer;
+            background: var(--navy); color: white; border: 2px solid white;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: 0.2s;
+        }
+        .btn-func:hover { transform: scale(1.1); background: var(--gold); color: var(--navy); }
+        .tooltip { font-size: 9px; position: absolute; right: 60px; background: white; padding: 3px 8px; border-radius: 3px; display: none; width: max-content; }
+        .btn-func:hover .tooltip { display: block; }
+
+        /* KHUNG THUYẾT MINH (BÊN DƯỚI) */
+        #desc-box {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 80%; max-height: 120px; background: rgba(255,255,255,0.95);
+            padding: 15px; border-radius: 8px; border-top: 4px solid var(--navy);
+            overflow-y: auto; font-size: 13px; line-height: 1.5; color: #333;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1); z-index: 5;
+            display: none; /* Mặc định ẩn, bấm nút mới hiện */
+        }
+
+        /* 3D VIEWER */
         model-viewer { width: 100vw; height: 100vh; background: radial-gradient(circle, #ffffff 0%, #cfd8dc 100%); }
-
-        /* Nút điều khiển âm thanh */
-        .audio-btn {
-            position: absolute; top: 85px; right: 20px;
-            background: var(--navy); color: white; border: none;
-            width: 45px; height: 45px; border-radius: 50%;
-            cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
     </style>
 </head>
 <body>
 
-    <header class="header">
-        <a href="../index.html" class="back-btn">← QUAY LẠI</a>
-        <div style="text-transform: uppercase; font-weight: bold; letter-spacing: 1px;">Súng cối 60mm - Tổng quan trang bị</div>
-    </header>
-
-    <button class="audio-btn" onclick="toggleAudio()" title="Bật/Tắt thuyết minh">
-        <span id="audio-icon">▶</span>
-    </button>
-
-    <div id="description-box">
-        <p id="description-text">Đang tải nội dung thuyết minh...</p>
+    <div class="top-nav">
+        <a href="../index.html" class="back-btn">← TRANG CHỦ</a>
+        <div class="title-label">TỔNG QUAN SÚNG CỐI 60MM</div>
     </div>
+
+    <div class="sidebar-left">
+        <a href="pages/CoCauTam.html" class="btn-nav">1. CƠ CẤU TẦM</a>
+        <a href="pages/CoCauHuong.html" class="btn-nav">2. CƠ CẤU HƯỚNG</a>
+        <a href="pages/CumThanSung.html" class="btn-nav">3. THÂN SÚNG</a>
+        <a href="pages/CumDuoiSung.html" class="btn-nav">4. ĐUÔI SÚNG</a>
+        <a href="pages/CumGiamGiat.html" class="btn-nav">5. GIẢM GIẬT</a>
+        <a href="pages/DeSung.html" class="btn-nav">6. ĐẾ SÚNG</a>
+    </div>
+
+    <div class="sidebar-right">
+        <div style="position: relative;">
+            <button class="btn-func" onclick="toggleAudio()">🔊</button>
+            <div class="tooltip">Thuyết minh</div>
+        </div>
+        
+        <div style="position: relative;">
+            <button class="btn-func" onclick="toggleRotate()">🔄</button>
+            <div class="tooltip">Tự động quay</div>
+        </div>
+
+        <div style="position: relative;">
+            <button class="btn-func" onclick="toggleText()">📝</button>
+            <div class="tooltip">Hiện nội dung</div>
+        </div>
+    </div>
+
+    <div id="desc-box">Đang tải dữ liệu...</div>
 
     <audio id="audio-player">
         <source src="ThuyetMinh.mp3" type="audio/mpeg">
@@ -63,37 +112,46 @@
         camera-controls 
         auto-rotate 
         shadow-intensity="1.2"
-        exposure="1.1">
+        exposure="1.0"
+        camera-orbit="45deg 55deg 2.5m">
     </model-viewer>
 
     <script>
-        const descText = document.getElementById('description-text');
         const audio = document.getElementById('audio-player');
-        const audioIcon = document.getElementById('audio-icon');
+        const descBox = document.getElementById('desc-box');
+        const model = document.getElementById('main-model');
+        let isTextVisible = false;
 
-        // 1. Tải file chữ (ThuyetMinh.txt nằm cùng thư mục Coi60)
+        // 1. Tải file chữ ThuyetMinh.txt
         fetch('ThuyetMinh.txt')
-            .then(response => {
-                if (!response.ok) throw new Error('Không tìm thấy file');
-                return response.text();
-            })
-            .then(data => {
-                descText.innerText = data;
-            })
-            .catch(err => {
-                descText.innerText = "Lỗi: Không thể tải file ThuyetMinh.txt. Hãy đảm bảo file nằm trong thư mục Coi60/.";
-                console.error(err);
-            });
+            .then(res => res.text())
+            .then(text => { descBox.innerText = text; })
+            .catch(() => { descBox.innerText = "Lỗi: Không tìm thấy file ThuyetMinh.txt trong thư mục Coi60."; });
 
-        // 2. Hàm điều khiển âm thanh
+        // 2. Chức năng Âm thanh
         function toggleAudio() {
             if (audio.paused) {
                 audio.play();
-                audioIcon.innerText = "⏸";
+                // Tự động hiện chữ khi nghe
+                if (!isTextVisible) toggleText();
             } else {
                 audio.pause();
-                audioIcon.innerText = "▶";
             }
+        }
+
+        // 3. Chức năng Xoay
+        function toggleRotate() {
+            if (model.hasAttribute('auto-rotate')) {
+                model.removeAttribute('auto-rotate');
+            } else {
+                model.setAttribute('auto-rotate', '');
+            }
+        }
+
+        // 4. Chức năng Ẩn/Hiện chữ
+        function toggleText() {
+            isTextVisible = !isTextVisible;
+            descBox.style.display = isTextVisible ? 'block' : 'none';
         }
     </script>
 </body>
