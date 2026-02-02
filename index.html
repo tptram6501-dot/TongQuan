@@ -8,141 +8,84 @@
         :root {
             --navy: #002147;
             --navy-light: #003366;
-            --accent: #0056b3;
             --bg: #f4f7f9;
         }
 
-        body {
-            margin: 0; padding: 0;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background-color: var(--bg);
-        }
+        body { margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; background-color: var(--bg); }
 
-        /* BANNER HẢI QUÂN */
+        /* BANNER */
         .banner {
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-            border-bottom: 4px solid #fbc02d; 
+            color: white; padding: 35px 20px; text-align: center; border-bottom: 4px solid #fbc02d; 
         }
+        .logo-box { background: white; padding: 8px; border-radius: 50%; display: inline-block; margin-bottom: 12px; }
+        .logo { height: 70px; width: auto; display: block; }
+        .banner h1 { margin: 0; font-size: 1.4rem; text-transform: uppercase; font-weight: 800; }
+        .banner h2 { margin: 5px 0 0; font-size: 1rem; font-weight: 400; opacity: 0.9; }
 
-        .logo-box {
-            background: white;
-            padding: 6px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
+        /* BỐ CỤC */
+        .main-container { max-width: 1300px; margin: 30px auto; padding: 0 15px; }
+        .category-wrapper { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .category-section { background: white; border-radius: 10px; overflow: hidden; border: 1px solid #dee2e6; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .cat-header { background: var(--navy); color: white; padding: 14px; text-align: center; font-weight: bold; font-size: 0.85rem; text-transform: uppercase; }
 
-        .logo { height: 65px; width: auto; display: block; }
+        .item-list { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
 
-        .banner h1 { margin: 0; font-size: 1.3rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; }
-        .banner h2 { margin: 5px 0 0; font-size: 0.9rem; font-weight: 400; opacity: 0.9; }
-
-        /* BỐ CỤC CHUYÊN NGÀNH */
-        .main-container {
-            max-width: 1200px;
-            margin: 25px auto;
-            padding: 0 15px;
-        }
-
-        .category-wrapper {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .category-section {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            border: 1px solid #dee2e6;
-        }
-
-        .cat-header {
-            background: var(--navy);
-            color: white;
-            padding: 12px;
-            text-align: center;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-        }
-
-        .item-list {
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        /* THẺ TRANG BỊ VỚI ICON NHỎ GỌN TRÀN KHUNG */
+        /* THẺ TRANG BỊ - ICON LỚN VÀ GỌN */
         .item-link {
+            display: flex; align-items: center; background: #ffffff;
+            border: 1px solid #edf2f7; border-radius: 8px;
+            text-decoration: none; color: var(--navy);
+            transition: 0.2s ease; overflow: hidden;
+            min-height: 65px; /* Đảm bảo thẻ luôn cao bằng icon */
+        }
+
+        .item-link:hover:not(.locked) { border-color: #0056b3; background: #f0f7ff; transform: translateX(6px); }
+
+        /* Khung chứa ảnh Icon lớn */
+        .icon-wrapper {
+            width: 65px; /* Tăng kích thước icon */
+            height: 65px;
+            flex-shrink: 0;
+            background: #ffffff; 
             display: flex;
             align-items: center;
-            background: #ffffff;
-            border: 1px solid #edf2f7;
-            border-radius: 6px;
-            text-decoration: none;
-            color: var(--navy);
-            transition: 0.2s ease-in-out;
-            overflow: hidden;
-        }
-
-        .item-link:hover:not(.locked) {
-            border-color: var(--accent);
-            background: #f8fbff;
-            transform: translateX(4px);
-        }
-
-        /* Khung chứa ảnh icon nhỏ gọn */
-        .icon-wrapper {
-            width: 45px; /* Kích thước nhỏ gọn */
-            height: 45px;
-            flex-shrink: 0;
-            overflow: hidden;
-            background: #eee;
+            justify-content: center;
+            border-right: 1px solid #eee;
+            padding: 5px; /* Khoảng đệm để ảnh không chạm viền */
+            box-sizing: border-box;
         }
 
         .item-icon {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Tràn khung tuyệt đối */
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* Ảnh nằm gọn, không mất chi tiết, không tràn */
             display: block;
         }
 
-        .item-name {
-            padding-left: 12px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
+        .item-name { 
+            padding-left: 15px; 
+            font-size: 0.85rem; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            line-height: 1.3;
         }
-
+        
         .locked { opacity: 0.4; cursor: not-allowed; filter: grayscale(1); }
 
-        @media (max-width: 900px) {
-            .category-wrapper { grid-template-columns: 1fr; }
-            .banner h1 { font-size: 1.1rem; }
-        }
+        @media (max-width: 1000px) { .category-wrapper { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
     <section class="banner">
-        <div class="logo-box">
-            <img src="Icon/Logo.png" alt="Logo" class="logo">
-        </div>
+        <div class="logo-box"><img src="Icon/Logo.png" alt="Logo" class="logo"></div>
         <h1>HỆ THỐNG HUẤN LUYỆN TRANG BỊ KỸ THUẬT SỐ HÓA</h1>
         <h2>TRUNG TÂM BẢO ĐẢM KỸ THUẬT VÙNG 3 HẢI QUÂN</h2>
     </section>
 
     <div class="main-container">
         <div class="category-wrapper">
-
             <div class="category-section">
                 <div class="cat-header">Vũ Khí Bộ Binh</div>
                 <div class="item-list">
@@ -192,7 +135,6 @@
                     </a>
                 </div>
             </div>
-
         </div>
     </div>
 
