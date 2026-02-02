@@ -22,103 +22,111 @@
         .banner {
             background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
             color: white;
-            padding: 40px 20px;
+            padding: 30px 20px;
             text-align: center;
-            border-bottom: 5px solid #fbc02d; 
+            border-bottom: 4px solid #fbc02d; 
         }
 
         .logo-box {
             background: white;
-            padding: 8px;
+            padding: 6px;
             border-radius: 50%;
             display: inline-block;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        .logo { height: 80px; width: auto; display: block; }
+        .logo { height: 65px; width: auto; display: block; }
 
-        .banner h1 { margin: 0; font-size: 1.5rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1px; }
-        .banner h2 { margin: 8px 0 0; font-size: 1rem; font-weight: 400; opacity: 0.9; letter-spacing: 1px; }
+        .banner h1 { margin: 0; font-size: 1.3rem; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; }
+        .banner h2 { margin: 5px 0 0; font-size: 0.9rem; font-weight: 400; opacity: 0.9; }
 
         /* BỐ CỤC CHUYÊN NGÀNH */
         .main-container {
-            max-width: 1400px;
-            margin: 30px auto;
-            padding: 0 20px;
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 15px;
         }
 
         .category-wrapper {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 15px;
         }
 
         .category-section {
             background: white;
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            border: 1px solid #d1d9e6;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #dee2e6;
         }
 
         .cat-header {
             background: var(--navy);
             color: white;
-            padding: 15px;
+            padding: 12px;
             text-align: center;
             font-weight: bold;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
         }
 
         .item-list {
-            padding: 15px;
+            padding: 10px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 8px;
         }
 
-        /* THẺ TRANG BỊ */
+        /* THẺ TRANG BỊ VỚI ICON NHỎ GỌN TRÀN KHUNG */
         .item-link {
             display: flex;
             align-items: center;
-            padding: 8px;
             background: #ffffff;
-            border: 1px solid #eee;
-            border-radius: 8px;
+            border: 1px solid #edf2f7;
+            border-radius: 6px;
             text-decoration: none;
             color: var(--navy);
-            transition: 0.3s;
+            transition: 0.2s ease-in-out;
+            overflow: hidden;
         }
 
         .item-link:hover:not(.locked) {
             border-color: var(--accent);
-            background: #f0f7ff;
-            transform: translateX(5px);
+            background: #f8fbff;
+            transform: translateX(4px);
+        }
+
+        /* Khung chứa ảnh icon nhỏ gọn */
+        .icon-wrapper {
+            width: 45px; /* Kích thước nhỏ gọn */
+            height: 45px;
+            flex-shrink: 0;
+            overflow: hidden;
+            background: #eee;
         }
 
         .item-icon {
-            width: 65px;
-            height: 65px;
-            border-radius: 6px;
-            object-fit: cover;
-            flex-shrink: 0;
-            border: 1px solid #ddd;
-            background: #f9f9f9;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Tràn khung tuyệt đối */
+            display: block;
         }
 
         .item-name {
-            padding-left: 15px;
-            font-size: 0.85rem;
+            padding-left: 12px;
+            font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
         }
 
-        .locked { opacity: 0.5; cursor: not-allowed; filter: grayscale(1); }
+        .locked { opacity: 0.4; cursor: not-allowed; filter: grayscale(1); }
 
-        @media (max-width: 1100px) {
+        @media (max-width: 900px) {
             .category-wrapper { grid-template-columns: 1fr; }
+            .banner h1 { font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -139,15 +147,15 @@
                 <div class="cat-header">Vũ Khí Bộ Binh</div>
                 <div class="item-list">
                     <a href="Coi60/index.html" class="item-link">
-                        <img src="Icon/anh_coi60.png" class="item-icon" alt="Cối 60">
+                        <div class="icon-wrapper"><img src="Icon/anh_coi60.png" class="item-icon"></div>
                         <span class="item-name">Súng cối 60mm</span>
                     </a>
                     <a href="#" class="item-link locked">
-                        <img src="Icon/anh_ak.png" class="item-icon" alt="AK">
+                        <div class="icon-wrapper"><img src="Icon/anh_ak.png" class="item-icon"></div>
                         <span class="item-name">Tiểu liên AK</span>
                     </a>
                     <a href="#" class="item-link locked">
-                        <img src="Icon/anh_k54.png" class="item-icon" alt="K54">
+                        <div class="icon-wrapper"><img src="Icon/anh_k54.png" class="item-icon"></div>
                         <span class="item-name">Súng ngắn K54</span>
                     </a>
                 </div>
@@ -157,15 +165,15 @@
                 <div class="cat-header">Chuyên Ngành Thủy Lôi</div>
                 <div class="item-list">
                     <a href="#" class="item-link locked">
-                        <img src="Icon/anh_kpm.png" class="item-icon" alt="KPM">
+                        <div class="icon-wrapper"><img src="Icon/anh_kpm.png" class="item-icon"></div>
                         <span class="item-name">Thủy lôi KPM</span>
                     </a>
                     <a href="#" class="item-link locked">
-                        <img src="Icon/anh_udm.png" class="item-icon" alt="UDM">
+                        <div class="icon-wrapper"><img src="Icon/anh_udm.png" class="item-icon"></div>
                         <span class="item-name">Thủy lôi UDM</span>
                     </a>
                     <a href="#" class="item-link locked">
-                        <img src="Icon/anh_dm1.png" class="item-icon" alt="ĐM-1">
+                        <div class="icon-wrapper"><img src="Icon/anh_dm1.png" class="item-icon"></div>
                         <span class="item-name">Thủy lôi ĐM-1</span>
                     </a>
                 </div>
@@ -175,11 +183,11 @@
                 <div class="cat-header">Trang Bị Bổ Trợ</div>
                 <div class="item-list">
                     <a href="#" class="item-link locked">
-                        <img src="Icon/anh_mfz.png" class="item-icon" alt="MFZ">
+                        <div class="icon-wrapper"><img src="Icon/anh_mfz.png" class="item-icon"></div>
                         <span class="item-name">Bình cứu hỏa MFZ</span>
                     </a>
                     <a href="#" class="item-link locked">
-                        <img src="Icon/anh_co2.png" class="item-icon" alt="CO2">
+                        <div class="icon-wrapper"><img src="Icon/anh_co2.png" class="item-icon"></div>
                         <span class="item-name">Bình cứu hỏa CO2</span>
                     </a>
                 </div>
