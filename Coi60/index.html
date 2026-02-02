@@ -7,68 +7,94 @@
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     <style>
         :root { --navy: #002147; --gold: #fbc02d; }
-        body { margin: 0; font-family: sans-serif; background: #f4f7f9; overflow: hidden; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #f4f7f9; overflow: hidden; }
 
-        /* Header Navy */
+        /* Header */
         .header {
             background: var(--navy); color: white; padding: 15px;
             display: flex; align-items: center; border-bottom: 3px solid var(--gold);
+            position: relative; z-index: 10;
         }
         .back-btn { color: white; text-decoration: none; font-weight: bold; font-size: 14px; margin-right: 20px; }
 
         /* Khung thuyết minh chữ */
         #description-box {
-            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 600px; background: rgba(255, 255, 255, 0.95);
-            padding: 15px; border-radius: 8px; border-left: 5px solid var(--navy);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 10;
+            position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+            width: 85%; max-width: 700px; background: rgba(255, 255, 255, 0.95);
+            padding: 15px; border-radius: 8px; border-left: 6px solid var(--navy);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3); z-index: 10;
+            max-height: 150px; overflow-y: auto; /* Cho phép cuộn nếu chữ quá dài */
         }
-        #description-text { color: #333; font-size: 14px; line-height: 1.5; margin: 0; }
+        #description-text { color: #333; font-size: 15px; line-height: 1.6; margin: 0; white-space: pre-wrap; }
 
-        /* Model Viewer */
         model-viewer { width: 100vw; height: 100vh; background: radial-gradient(circle, #ffffff 0%, #cfd8dc 100%); }
 
-        /* Nút âm thanh */
-        .audio-ctrl {
-            position: absolute; top: 80px; right: 20px;
-            background: white; border: 2px solid var(--navy);
-            padding: 10px; border-radius: 50%; cursor: pointer; z-index: 10;
+        /* Nút điều khiển âm thanh */
+        .audio-btn {
+            position: absolute; top: 85px; right: 20px;
+            background: var(--navy); color: white; border: none;
+            width: 45px; height: 45px; border-radius: 50%;
+            cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
     </style>
 </head>
 <body>
 
     <header class="header">
-        <a href="../index.html" class="back-btn">← TRANG CHỦ</a>
-        <div style="text-transform: uppercase; font-weight: bold;">Súng cối 60mm - Tổng thể</div>
+        <a href="../index.html" class="back-btn">← QUAY LẠI</a>
+        <div style="text-transform: uppercase; font-weight: bold; letter-spacing: 1px;">Súng cối 60mm - Tổng quan trang bị</div>
     </header>
+
+    <button class="audio-btn" onclick="toggleAudio()" title="Bật/Tắt thuyết minh">
+        <span id="audio-icon">▶</span>
+    </button>
 
     <div id="description-box">
         <p id="description-text">Đang tải nội dung thuyết minh...</p>
     </div>
 
     <audio id="audio-player">
-        <source src="../ThuyetMinh.mp3" type="audio/mpeg">
+        <source src="ThuyetMinh.mp3" type="audio/mpeg">
     </audio>
 
-    <model-viewer id="main-model" src="models/LapGhepTong.glb" camera-controls auto-rotate shadow-intensity="1">
+    <model-viewer id="main-model" 
+        src="models/LapGhepTong.glb" 
+        camera-controls 
+        auto-rotate 
+        shadow-intensity="1.2"
+        exposure="1.1">
     </model-viewer>
 
     <script>
         const descText = document.getElementById('description-text');
         const audio = document.getElementById('audio-player');
+        const audioIcon = document.getElementById('audio-icon');
 
-        // 1. Tải thuyết minh chữ từ file .txt ở thư mục gốc
-        fetch('../ThuyetMinh.txt')
-            .then(response => response.text())
+        // 1. Tải file chữ (ThuyetMinh.txt nằm cùng thư mục Coi60)
+        fetch('ThuyetMinh.txt')
+            .then(response => {
+                if (!response.ok) throw new Error('Không tìm thấy file');
+                return response.text();
+            })
             .then(data => {
                 descText.innerText = data;
-                // Tự động phát âm thanh khi nội dung chữ đã sẵn sàng (tùy trình duyệt cho phép)
-                audio.play().catch(() => console.log("Cần người dùng tương tác để phát nhạc"));
             })
             .catch(err => {
-                descText.innerText = "Không thể tải file thuyết minh. Vui lòng kiểm tra file ThuyetMinh.txt ở thư mục gốc.";
+                descText.innerText = "Lỗi: Không thể tải file ThuyetMinh.txt. Hãy đảm bảo file nằm trong thư mục Coi60/.";
+                console.error(err);
             });
+
+        // 2. Hàm điều khiển âm thanh
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+                audioIcon.innerText = "⏸";
+            } else {
+                audio.pause();
+                audioIcon.innerText = "▶";
+            }
+        }
     </script>
 </body>
 </html>
