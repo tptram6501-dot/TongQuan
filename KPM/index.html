@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Thủy Lôi KPM - Tổng Quan</title>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+    <style>
+        /* GIỮ NGUYÊN CSS CHUẨN CỦA DỰ ÁN */
+        :root { --navy: #002147; --gold: #fbc02d; --red-army: #b71c1c; }
+        body { margin: 0; background: #f0f2f5; font-family: 'Segoe UI', Arial, sans-serif; overflow: hidden; }
+
+        /* HEADER */
+        .top-nav {
+            position: absolute; top: 0; width: 100%; text-align: center;
+            background: rgba(255, 255, 255, 0.95); padding: 10px 0; z-index: 10;
+            border-bottom: 3px solid var(--gold);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .title-label { color: var(--navy); text-transform: uppercase; font-size: 16px; font-weight: 800; }
+        
+        /* MENU TRÁI (CÁC BỘ PHẬN KPM) */
+        .sidebar-left {
+            position: absolute; left: 10px; top: 55%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 8px; z-index: 10;
+        }
+        .btn-nav {
+            width: 130px; padding: 10px 5px; cursor: pointer;
+            background: rgba(255, 255, 255, 0.9); color: var(--navy);
+            border: 1px solid var(--navy); border-left: 5px solid var(--navy);
+            border-radius: 4px; font-weight: bold; font-size: 10px;
+            text-decoration: none; text-align: left; padding-left: 10px;
+            transition: 0.2s; box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        .btn-nav:hover { background: var(--navy); color: white; transform: translateX(5px); }
+
+        /* MENU PHẢI (CHỨC NĂNG) */
+        .sidebar-right {
+            position: absolute; right: 10px; top: 55%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 12px; z-index: 10;
+        }
+        .btn-func {
+            width: 50px; height: 50px; cursor: pointer;
+            background: var(--navy); color: white; border: 2px solid white;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: 0.2s;
+        }
+        .btn-func:hover { transform: scale(1.1); background: var(--gold); color: var(--navy); }
+        
+        /* Trạng thái nút đang bật (Active) */
+        .btn-func.active { background: var(--gold); color: var(--navy); border-color: var(--navy); }
+
+        /* Tooltip */
+        .tooltip { font-size: 9px; position: absolute; right: 60px; background: white; padding: 3px 8px; border-radius: 3px; display: none; width: max-content; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .btn-func:hover .tooltip { display: block; }
+
+        /* KHUNG THUYẾT MINH TEXT */
+        #desc-box {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 80%; max-height: 150px; 
+            background: rgba(255,255,255,0.98);
+            padding: 15px; border-radius: 8px; 
+            border-top: 4px solid var(--navy);
+            overflow-y: auto; font-size: 14px; line-height: 1.6; color: #333;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.2); z-index: 5;
+            display: none;
+        }
+
+        /* LOADING BAR */
+        .progress-bar {
+            display: block; width: 33%; height: 6px;
+            position: absolute; left: 50%; top: 50%; transform: translate3d(-50%, -50%, 0);
+            background: rgba(255, 255, 255, 0.2); border: 1px solid var(--navy);
+            border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); z-index: 100;
+        }
+        .progress-bar.hide { visibility: hidden; transition: visibility 0.3s; }
+        .update-bar { background-color: var(--gold); width: 0%; height: 100%; border-radius: 4px; transition: width 0.1s; }
+
+        /* 3D VIEWER */
+        model-viewer { width: 100vw; height: 100vh; background: radial-gradient(circle, #ffffff 0%, #cfd8dc 100%); }
+    </style>
+</head>
+<body>
+
+    <div class="top-nav">
+        <div class="title-label">MÔ HÌNH HUẤN LUYỆN THỦY LÔI KPM</div>
+    </div>
+
+    <audio id="audio-player">
+        <source src="ThuyetMinhKPM.wav" type="audio/wav">
+    </audio>
+
+    <div class="sidebar-left">
+        <div class="btn-nav" onclick="showPart('than-loi')">1. THÂN LÔI</div>
+        <div class="btn-nav" onclick="showPart('khoi-thuoc')">2. KHỐI THUỐC</div>
+        <div class="btn-nav" onclick="showPart('ngoi-no')">3. NGÒI NỔ</div>
+        <div class="btn-nav" onclick="showPart('thiet-bi-an-toan')">4. THIẾT BỊ AN TOÀN</div>
+        <div class="btn-nav" onclick="showPart('neo')">5. HỆ THỐNG NEO</div>
+    </div>
+
+    <div class="sidebar-right">
+        <div style="position: relative;">
+            <button class="btn-func" onclick="toggleAudio()" id="btn-audio">🔊</button>
+            <div class="tooltip">Nghe thuyết minh</div>
+        </div>
+
+        <div style="position: relative;">
+            <button class="btn-func" onclick="toggleText()" id="btn-text">📝</button>
+            <div class="tooltip">Đọc thuyết minh</div>
+        </div>
+        
+        <div style="position: relative;">
+            <button class="btn-func" onclick="toggleRotate()">🔄</button>
+            <div class="tooltip">Tự động quay</div>
+        </div>
+    </div>
+
+    <div id="desc-box">Đang tải dữ liệu thuyết minh...</div>
+
+    <model-viewer id="main-model" 
+        src="models/KPM.glb" 
+        camera-controls 
+        auto-rotate 
+        shadow-intensity="1.2"
+        exposure="1.0"
+        camera-orbit="45deg 75deg 1.5m">
+        <div class="progress-bar" slot="progress-bar">
+            <div class="update-bar"></div>
+        </div>
+    </model-viewer>
+
+    <script>
+        const descBox = document.getElementById('desc-box');
+        const model = document.getElementById('main-model');
+        const progressBar = document.querySelector('.progress-bar');
+        const updateBar = document.querySelector('.update-bar');
+        
+        const btnText = document.getElementById('btn-text');
+        const btnAudio = document.getElementById('btn-audio');
+        const audioPlayer = document.getElementById('audio-player');
+        
+        let isTextVisible = false;
+
+        // 1. Tải file thuyết minh text
+        fetch('ThuyetMinhKPM.txt')
+            .then(res => {
+                if (!res.ok) throw new Error("Không tìm thấy file");
+                return res.text();
+            })
+            .then(text => { descBox.innerText = text; })
+            .catch(err => { 
+                console.error(err);
+                descBox.innerHTML = "<b style='color:red'>Lỗi: Không tìm thấy file ThuyetMinhKPM.txt</b>"; 
+            });
+
+        // 2. Chức năng Bật/Tắt Audio
+        function toggleAudio() {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                btnAudio.classList.add('active'); // Sáng đèn
+                
+                // Tự động bật text nếu đang tắt
+                if (!isTextVisible) toggleText();
+            } else {
+                audioPlayer.pause();
+                btnAudio.classList.remove('active'); // Tắt đèn
+            }
+        }
+
+        // Tự động tắt đèn nút khi hết bài
+        audioPlayer.onended = function() {
+            btnAudio.classList.remove('active');
+        };
+
+        // 3. Chức năng Bật/Tắt Text
+        function toggleText() {
+            isTextVisible = !isTextVisible;
+            if (isTextVisible) {
+                descBox.style.display = 'block';
+                btnText.classList.add('active');
+            } else {
+                descBox.style.display = 'none';
+                btnText.classList.remove('active');
+            }
+        }
+
+        // 4. Chức năng Xoay
+        function toggleRotate() {
+            if (model.hasAttribute('auto-rotate')) {
+                model.removeAttribute('auto-rotate');
+            } else {
+                model.setAttribute('auto-rotate', '');
+            }
+        }
+
+        // 5. Loading Bar
+        model.addEventListener('progress', (e) => {
+            const progress = e.detail.totalProgress;
+            updateBar.style.width = `${progress * 100}%`;
+            if (progress === 1) setTimeout(() => { progressBar.classList.add('hide'); }, 500);
+            else progressBar.classList.remove('hide');
+        });
+
+        // 6. Xử lý khi chọn bộ phận
+        function showPart(partName) {
+            console.log("Đã chọn: " + partName);
+            if (!isTextVisible) toggleText();
+        }
+    </script>
+</body>
+</html>
