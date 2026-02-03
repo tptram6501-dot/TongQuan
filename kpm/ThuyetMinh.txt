@@ -1,24 +1,18 @@
-1. Công dụng
-Súng tiểu liên 7,62mm AK do liên xô thiết kế chế tạo đầu tiên lấy tên là súng tiểu liên 7,62 AK47.
-Súng tiểu liên 7,62 AK được trang bị cho cá nhân để tiêu diệt sinh lực địch trong tầm bắn hiệu quả 400m và tiêu diệt địch đến cự ly 800m.
-Trong chiến đấu có thể dùng để bắn quân nhảy dù, máy bay tầm thấp ở cự ly 400m trở lại. Súng còn có lê và báng để sự dụng trong đánh cận chiến.
-2. Đặc điểm cấu tạo
-- Súng tự động bắn theo nguyên lý trích khí thuốc qua thành nòng, tác dụng lên piston làm piston lùi thực hiện các chuyển động tự động của súng.
-- Đóng mở khóa nòng theo kiểu quay khi đóng khóa, thân khóa nòng quay theo chiều kim đồng hồ, mặt tỳ trên thân khóa lọt vào khấc tỳ trên hộp khóa nòng tạo thế khóa vững chắc. Khi mở, thân khóa chuyển động ngược lại.
-- Bộ phận cò vừa bắn được phát một, vừa bắn được liên thanh. Búa đập theo kiểu cầu vồng sử dụng năng lượng lò xo riêng.
-- An toàn theo kiểu chặn tay cò và chặn đường lùi của khóa nóng.
-- Bộ phận ngắm có thước ngắm kiểu bệ vòng, đầu ngắm được liên kết ren với bệ di động để tiện điều chỉnh.
-- Tiếp đạn từ ngoài vào đường tống đạn sử dụng năng lượng lò xo riêng.
-- Súng bắn ở nhiều tư thế đứng, quỳ, nằm,…
-- Súng dùng đạn cỡ 7,62mm kiểu 1943(LX) hay 7,62mm K56(TQ).
-3. Tính năng kỹ chiến thuật
-- Cỡ nòng	7,62mm
-- Khối lượng súng không đạn	4,3kg
-- Khối lượng súng lắp đủ đạn (30 viên)	4,8kg
-- Chiều dài súng 	870mm
-- Bước ren đầu ngắm	0,75mm
-- Sơ tốc đầu đạn (v0)	710ms
-- Tốc độ bắn lý thuyết	600 phátphút
-- Tốc độ bắn liên thanh thực tế	90-100 phátphút
-- Tốc độ bắn phát một thực tế	40 phátphút
-- Hộp tiếp đạn chứa 	30 viên
+Thủy lôi KПM là thủy lôi chạm nổ chống đổ bộ trang bị trên tàu mặt nước. Thủy lôi được sử dụng để thả trong hệ thống chướng ngại thủy lôi phòng thủ nhằm tiêu diệt các phương tiện đổ bộ của địch.
+	Thủy lôi thả từ tàu mặt nước và các phương tiện nổi khác có độ cao mặt boong không quá 1,5m và có trang bị đường ray thả thủy lôi và mang thả thủy lôi sau lái. Thủy lôi được thả với vận tốc tàu không quá 10 M/h trong khu vực biển gần bờ có độ sâu từ 5-20m và độ sâu của thủy lôi từ 0,5-2m. 
+	- Lực giữ của neo đảm bảo duy trì vị trí thả.
+	- Giãn cách thủy lôi tối thiểu:			30m.
+	- Thời gian chuẩn bị bổ sung và chuẩn bị bước cuối cho thủy lôi tương ứng là các giá trị 6 phút và 3 phút.
+	- Kích thước của thủy lôi.
+	+ Dài:							1450mm.
+	+ Rộng:						700mm.
+	+ Cao:						770mmm.
+	- Khối lượng thủy lôi:				360Kg.
+	- Khối lượng thân thủy lôi đã lắp máy:	 95Kg.
+	- Khối lượng của neo:				265Kg.
+	- Khối lượng của thuốc nổ:			30Kg.
+	- Thủy lôi KПM là loại thủy lôi neo với khối lượng thuốc nổ nhỏ, thủy lôi thả tới độ sâu cho trước một cách tự động từ mặt nước bằng phương pháp dây - quả dọi.
+	- Thủy lôi nổ được thực hiện bằng công tắc va đập điện.
+	- Thủy lôi có hai máy bảo hiểm độc lập: Máy bảo hiểm thủy tĩnh và máy bảo hiểm thủy ngân nghiêng.
+	- Cấu trúc của thủy lôi cho phép sử dụng vòng dây xích để cố định thủy lôi khi đi biển.
+	- Nhằm đảm bảo sức sống theo yêu cầu và đảm bảo sức chống rà phá, thủy lôi có dây neo bằng xích.
