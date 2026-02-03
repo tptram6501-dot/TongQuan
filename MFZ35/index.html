@@ -6,7 +6,7 @@
     <title>Bình Cứu Hỏa MFZ35 - Tổng Quan</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
     <style>
-        /* CSS CHUẨN CỦA DỰ ÁN (Xanh Navy - Vàng) */
+        /* CSS CHUẨN CỦA DỰ ÁN */
         :root { --navy: #002147; --gold: #fbc02d; --red-fire: #d32f2f; }
         body { margin: 0; background: #f0f2f5; font-family: 'Segoe UI', Arial, sans-serif; overflow: hidden; }
 
@@ -14,12 +14,12 @@
         .top-nav {
             position: absolute; top: 0; width: 100%; text-align: center;
             background: rgba(255, 255, 255, 0.95); padding: 10px 0; z-index: 10;
-            border-bottom: 3px solid var(--red-fire); /* Màu đỏ đặc trưng PCCC */
+            border-bottom: 3px solid var(--red-fire);
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
         .title-label { color: var(--navy); text-transform: uppercase; font-size: 16px; font-weight: 800; }
         
-        /* MENU TRÁI (CẤU TẠO BÌNH MFZ35) */
+        /* MENU TRÁI (CẤU TẠO) */
         .sidebar-left {
             position: absolute; left: 10px; top: 55%; transform: translateY(-50%);
             display: flex; flex-direction: column; gap: 8px; z-index: 10;
@@ -47,6 +47,10 @@
             transition: 0.2s;
         }
         .btn-func:hover { transform: scale(1.1); background: var(--gold); color: var(--navy); }
+        
+        /* Trạng thái nút đang bật (Active) */
+        .btn-func.active { background: var(--gold); color: var(--navy); border-color: var(--navy); }
+
         .tooltip { font-size: 9px; position: absolute; right: 60px; background: white; padding: 3px 8px; border-radius: 3px; display: none; width: max-content; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         .btn-func:hover .tooltip { display: block; }
 
@@ -82,6 +86,10 @@
         <div class="title-label">MÔ HÌNH HUẤN LUYỆN BÌNH CỨU HỎA MFZ35</div>
     </div>
 
+    <audio id="audio-player">
+        <source src="ThuyetMinhLoiMFZ35.wav" type="audio/wav">
+    </audio>
+
     <div class="sidebar-left">
         <div class="btn-nav" onclick="showPart('than-binh')">1. THÂN BÌNH</div>
         <div class="btn-nav" onclick="showPart('cum-van')">2. CỤM VAN & TAY KÉO</div>
@@ -92,8 +100,13 @@
 
     <div class="sidebar-right">
         <div style="position: relative;">
+            <button class="btn-func" onclick="toggleAudio()" id="btn-audio">🔊</button>
+            <div class="tooltip">Nghe thuyết minh</div>
+        </div>
+
+        <div style="position: relative;">
             <button class="btn-func" onclick="toggleText()" id="btn-text">📝</button>
-            <div class="tooltip">Hiện thuyết minh</div>
+            <div class="tooltip">Đọc thuyết minh</div>
         </div>
         
         <div style="position: relative;">
@@ -110,7 +123,8 @@
         auto-rotate 
         shadow-intensity="1.5"
         exposure="0.8"
-        camera-orbit="0deg 75deg 2m"> <div class="progress-bar" slot="progress-bar">
+        camera-orbit="0deg 75deg 2m">
+        <div class="progress-bar" slot="progress-bar">
             <div class="update-bar"></div>
         </div>
     </model-viewer>
@@ -120,39 +134,54 @@
         const model = document.getElementById('main-model');
         const progressBar = document.querySelector('.progress-bar');
         const updateBar = document.querySelector('.update-bar');
+        
         const btnText = document.getElementById('btn-text');
+        const btnAudio = document.getElementById('btn-audio');
+        const audioPlayer = document.getElementById('audio-player');
         
         let isTextVisible = false;
 
-        // 1. Tải file thuyết minh (ThuyetMinhMFZ35.txt)
+        // 1. Tải file thuyết minh text
         fetch('ThuyetMinhMFZ35.txt')
             .then(res => {
-                if (!res.ok) throw new Error("Không tìm thấy file");
+                if (!res.ok) throw new Error("File not found");
                 return res.text();
             })
-            .then(text => { 
-                descBox.innerText = text; 
-            })
-            .catch(err => { 
-                console.error(err);
-                descBox.innerHTML = "<b style='color:red'>Lỗi: Thiếu file ThuyetMinhMFZ35.txt</b>"; 
-            });
+            .then(text => { descBox.innerText = text; })
+            .catch(() => { descBox.innerHTML = "<b style='color:red'>Lỗi: Thiếu file ThuyetMinhMFZ35.txt</b>"; });
 
-        // 2. Chức năng Bật/Tắt khung text
+        // 2. Chức năng Bật/Tắt Audio
+        function toggleAudio() {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                btnAudio.classList.add('active'); // Đổi màu nút
+                
+                // Tự động hiện văn bản khi nghe để tiện theo dõi
+                if (!isTextVisible) toggleText();
+            } else {
+                audioPlayer.pause();
+                btnAudio.classList.remove('active'); // Trả về màu cũ
+            }
+        }
+
+        // Tự động tắt nút khi audio chạy hết
+        audioPlayer.onended = function() {
+            btnAudio.classList.remove('active');
+        };
+
+        // 3. Chức năng Bật/Tắt Text
         function toggleText() {
             isTextVisible = !isTextVisible;
             if (isTextVisible) {
                 descBox.style.display = 'block';
-                btnText.style.background = 'var(--gold)'; 
-                btnText.style.color = 'var(--navy)';
+                btnText.classList.add('active');
             } else {
                 descBox.style.display = 'none';
-                btnText.style.background = 'var(--navy)';
-                btnText.style.color = 'white';
+                btnText.classList.remove('active');
             }
         }
 
-        // 3. Chức năng Xoay
+        // 4. Chức năng Xoay
         function toggleRotate() {
             if (model.hasAttribute('auto-rotate')) {
                 model.removeAttribute('auto-rotate');
@@ -161,7 +190,7 @@
             }
         }
 
-        // 4. Loading Bar
+        // 5. Loading Bar
         model.addEventListener('progress', (e) => {
             const progress = e.detail.totalProgress;
             updateBar.style.width = `${progress * 100}%`;
@@ -169,10 +198,10 @@
             else progressBar.classList.remove('hide');
         });
 
-        // 5. Xử lý khi chọn bộ phận (Để phát triển sau: Camera zoom vào vị trí)
+        // 6. Xử lý khi chọn bộ phận
         function showPart(partName) {
-            console.log("Đã chọn bộ phận: " + partName);
-            // Mở khung text ngay khi chọn bộ phận để người học đọc thông tin
+            console.log("Đã chọn: " + partName);
+            // Mở text khi chọn bộ phận
             if (!isTextVisible) toggleText();
         }
     </script>
