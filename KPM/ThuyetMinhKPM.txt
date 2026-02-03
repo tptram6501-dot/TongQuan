@@ -1,18 +1,6 @@
-Thủy lôi KПM là thủy lôi chạm nổ chống đổ bộ trang bị trên tàu mặt nước. Thủy lôi được sử dụng để thả trong hệ thống chướng ngại thủy lôi phòng thủ nhằm tiêu diệt các phương tiện đổ bộ của địch.
-	Thủy lôi thả từ tàu mặt nước và các phương tiện nổi khác có độ cao mặt boong không quá 1,5m và có trang bị đường ray thả thủy lôi và mang thả thủy lôi sau lái. Thủy lôi được thả với vận tốc tàu không quá 10 M/h trong khu vực biển gần bờ có độ sâu từ 5-20m và độ sâu của thủy lôi từ 0,5-2m. 
-	- Lực giữ của neo đảm bảo duy trì vị trí thả.
-	- Giãn cách thủy lôi tối thiểu:			30m.
-	- Thời gian chuẩn bị bổ sung và chuẩn bị bước cuối cho thủy lôi tương ứng là các giá trị 6 phút và 3 phút.
-	- Kích thước của thủy lôi.
-	+ Dài:							1450mm.
-	+ Rộng:						700mm.
-	+ Cao:						770mmm.
-	- Khối lượng thủy lôi:				360Kg.
-	- Khối lượng thân thủy lôi đã lắp máy:	 95Kg.
-	- Khối lượng của neo:				265Kg.
-	- Khối lượng của thuốc nổ:			30Kg.
-	- Thủy lôi KПM là loại thủy lôi neo với khối lượng thuốc nổ nhỏ, thủy lôi thả tới độ sâu cho trước một cách tự động từ mặt nước bằng phương pháp dây - quả dọi.
-	- Thủy lôi nổ được thực hiện bằng công tắc va đập điện.
-	- Thủy lôi có hai máy bảo hiểm độc lập: Máy bảo hiểm thủy tĩnh và máy bảo hiểm thủy ngân nghiêng.
-	- Cấu trúc của thủy lôi cho phép sử dụng vòng dây xích để cố định thủy lôi khi đi biển.
-	- Nhằm đảm bảo sức sống theo yêu cầu và đảm bảo sức chống rà phá, thủy lôi có dây neo bằng xích.
+Thủy lôi KPM là loại vũ khí chống ngầm/tàu mặt nước do Liên Xô sản xuất, ra đời từ khoảng năm 1957. Đây là loại thủy lôi neo/lơ lửng được thiết kế để phong tỏa các khu vực biển, cảng và đường hàng hải. Trong biên chế Quân đội Nhân dân Việt Nam, KPM được sử dụng rộng rãi, thể hiện sự lợi hại trong nhiệm vụ phòng thủ và tấn công đường thủy. 
+Nguồn gốc: Phát triển từ Liên Xô, là một phần trong kho vũ khí của các nước Xã hội Chủ nghĩa trước đây, nổi tiếng với độ bền và hiệu quả.
+Tính năng: KPM thường được bố trí lơ lửng trong nước nhờ neo, không nổi trên mặt nước để khó bị phát hiện. Nó hoạt động dựa trên các nguyên lý nổ khi chạm hoặc khi có tàu đi qua (cảm ứng).
+Sử dụng: Có thể được thả từ tàu mặt nước hoặc máy bay. KPM đặc biệt hiệu quả khi phối hợp cùng tàu ngầm hoặc các loại thủy lôi khác như UĐM (được sản xuất bởi Nhà máy X28, Cục Kỹ thuật Quân chủng Hải quân) để tạo thành các bãi mìn phong tỏa.
+Vai trò: Dù đã ra đời lâu, các loại thủy lôi như KPM vẫn được xem là "cơn ác mộng" đối với tàu chiến và tàu ngầm hiện đại nhờ chi phí thấp nhưng sức phá hoại cao. 
+Lịch sử thủy lôi KPM gắn liền với sự phát triển của chiến tranh hải quân thế kỷ 20, đặc biệt trong các cuộc xung đột mà Liên Xô hỗ trợ các nước đồng minh, trong đó có Việt Nam.
